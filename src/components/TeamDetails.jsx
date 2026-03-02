@@ -1,3 +1,5 @@
+import { useNavigate, useParams } from 'react-router-dom'
+
 const exampleTeams = {
   1: {
     id: 1,
@@ -22,15 +24,18 @@ function getTeam(teamId) {
   return exampleTeams[1]
 }
 
-function TeamDetails({ teamId, onBack }) {
-  const team = getTeam(teamId)
+function TeamDetails() {
+  const { teamId } = useParams()
+  const navigate = useNavigate()
+  const numericId = Number(teamId)
+  const team = getTeam(Number.isNaN(numericId) ? undefined : numericId)
 
   return (
     <section>
       <button
         type="button"
         className="back-button"
-        onClick={() => onBack?.()}
+        onClick={() => navigate(-1)}
       >
         Back
       </button>

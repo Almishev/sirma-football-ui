@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const initialMatches = [
   {
@@ -19,8 +20,9 @@ const initialMatches = [
   },
 ]
 
-function MatchesTable({ onSelectMatch }) {
+function MatchesTable() {
   const [matches] = useState(initialMatches)
+  const navigate = useNavigate()
 
   return (
     <section>
@@ -39,7 +41,7 @@ function MatchesTable({ onSelectMatch }) {
           {matches.map((match) => (
             <tr
               key={match.id}
-              onClick={() => onSelectMatch?.(match.id)}
+              onClick={() => navigate(`/matches/${match.id}`)}
             >
               <td>{match.date}</td>
               <td>{match.group}</td>

@@ -1,3 +1,5 @@
+import { useNavigate, useParams } from 'react-router-dom'
+
 const exampleMatchDetails = {
   1: {
     id: 1,
@@ -26,15 +28,18 @@ function getMatch(matchId) {
   return exampleMatchDetails[1]
 }
 
-function MatchDetails({ matchId, onBack, onSelectTeam }) {
-  const match = getMatch(matchId)
+function MatchDetails() {
+  const { matchId } = useParams()
+  const navigate = useNavigate()
+  const numericId = Number(matchId)
+  const match = getMatch(Number.isNaN(numericId) ? undefined : numericId)
 
   return (
     <section>
       <button
         type="button"
         className="back-button"
-        onClick={() => onBack?.()}
+        onClick={() => navigate('/')}
       >
         Back to matches
       </button>
@@ -50,7 +55,7 @@ function MatchDetails({ matchId, onBack, onSelectTeam }) {
         <div className="match-team-column">
           <h3
             className="section-title"
-            onClick={() => onSelectTeam?.(match.aTeam.id)}
+            onClick={() => navigate(`/teams/${match.aTeam.id}`)}
           >
             {match.aTeam.name} (Group {match.aTeam.group})
           </h3>
@@ -77,7 +82,7 @@ function MatchDetails({ matchId, onBack, onSelectTeam }) {
         <div className="match-team-column">
           <h3
             className="section-title"
-            onClick={() => onSelectTeam?.(match.bTeam.id)}
+            onClick={() => navigate(`/teams/${match.bTeam.id}`)}
           >
             {match.bTeam.name} (Group {match.bTeam.group})
           </h3>
