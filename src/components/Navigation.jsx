@@ -16,6 +16,18 @@ function Navigation() {
       >
         Teams
       </NavLink>
+      <NavLink
+        to="/groups"
+        className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
+      >
+        Groups
+      </NavLink>
+      <NavLink
+        to="/standings"
+        className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
+      >
+        Standings
+      </NavLink>
     </nav>
   )
 }

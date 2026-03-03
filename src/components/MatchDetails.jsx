@@ -85,7 +85,11 @@ function MatchDetails() {
                 </thead>
                 <tbody>
                   {match.aTeam?.players?.map((player) => (
-                    <tr key={player.id}>
+                    <tr
+                      key={player.id}
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => navigate(`/players/${player.id}`)}
+                    >
                       <td>{player.teamNumber}</td>
                       <td>{player.fullName}</td>
                       <td>{player.position}</td>
@@ -112,7 +116,11 @@ function MatchDetails() {
                 </thead>
                 <tbody>
                   {match.bTeam?.players?.map((player) => (
-                    <tr key={player.id}>
+                    <tr
+                      key={player.id}
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => navigate(`/players/${player.id}`)}
+                    >
                       <td>{player.teamNumber}</td>
                       <td>{player.fullName}</td>
                       <td>{player.position}</td>

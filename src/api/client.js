@@ -46,3 +46,11 @@ export function fetchTeams() {
   return request('/teams')
 }
 
+export function fetchGroupStandings() {
+  return request('/groups/standings')
+}
+
+export function fetchPlayerById(id) {
+  return request(`/players/${id}`)
+}
+

@@ -75,7 +75,11 @@ function TeamDetails() {
             </thead>
             <tbody>
               {team.players?.map((player) => (
-                <tr key={player.id}>
+                <tr
+                  key={player.id}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => navigate(`/players/${player.id}`)}
+                >
                   <td>{player.teamNumber}</td>
                   <td>{player.fullName}</td>
                   <td>{player.position}</td>
