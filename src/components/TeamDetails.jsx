@@ -1,34 +1,49 @@
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
-const exampleTeams = {
-  1: {
-    id: 1,
-    name: 'Germany',
-    group: 'A',
-    managerFullName: 'Julian Nagelsmann',
-    players: [
-      { id: 1, number: 1, fullName: 'Manuel Neuer', position: 'GK' },
-      { id: 2, number: 2, fullName: 'Antonio Rüdiger', position: 'DF' },
-      { id: 3, number: 3, fullName: 'David Raum', position: 'DF' },
-      { id: 4, number: 4, fullName: 'Jonathan Tah', position: 'DF' },
-      { id: 5, number: 5, fullName: 'Pascal Groß', position: 'MF' },
-      { id: 6, number: 6, fullName: 'Joshua Kimmich', position: 'DF' },
-    ],
-  },
-}
-
-function getTeam(teamId) {
-  if (teamId && exampleTeams[teamId]) {
-    return exampleTeams[teamId]
-  }
-  return exampleTeams[1]
-}
+import { fetchTeamById } from '../api/client'
 
 function TeamDetails() {
   const { teamId } = useParams()
   const navigate = useNavigate()
   const numericId = Number(teamId)
-  const team = getTeam(Number.isNaN(numericId) ? undefined : numericId)
+  const hasValidId = !Number.isNaN(numericId)
+
+  const [team, setTeam] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    if (!hasValidId) {
+      setLoading(false)
+      setError('Invalid team id.')
+      return
+    }
+
+    let cancelled = false
+
+    async function load() {
+      try {
+        const data = await fetchTeamById(numericId)
+        if (!cancelled) {
+          setTeam(data)
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err.message || 'Failed to load team details.')
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
+    }
+
+    load()
+
+    return () => {
+      cancelled = true
+    }
+  }, [hasValidId, numericId])
 
   return (
     <section>
@@ -40,29 +55,36 @@ function TeamDetails() {
         Back
       </button>
 
-      <h2>{team.name}</h2>
-      <p>
-        Group {team.group} · Manager: {team.managerFullName}
-      </p>
+      {loading && <p>Loading team details...</p>}
+      {error && !loading && <p>Error: {error}</p>}
 
-      <table className="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Player</th>
-            <th>Position</th>
-          </tr>
-        </thead>
-        <tbody>
-          {team.players.map((player) => (
-            <tr key={player.id}>
-              <td>{player.number}</td>
-              <td>{player.fullName}</td>
-              <td>{player.position}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {!loading && !error && team && (
+        <>
+          <h2>{team.name}</h2>
+          <p>
+            Group {team.groupLetter} · Manager: {team.managerFullName}
+          </p>
+
+          <table className="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Position</th>
+              </tr>
+            </thead>
+            <tbody>
+              {team.players?.map((player) => (
+                <tr key={player.id}>
+                  <td>{player.teamNumber}</td>
+                  <td>{player.fullName}</td>
+                  <td>{player.position}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </section>
   )
 }
