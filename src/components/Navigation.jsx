@@ -51,6 +51,13 @@ function Navigation() {
         >
           Standings
         </NavLink>
+        <NavLink
+          to="/import"
+          className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
+          onClick={() => setMenuOpen(false)}
+        >
+          Import
+        </NavLink>
       </div>
 
       {!menuOpen && (
