@@ -30,8 +30,9 @@ async function request(path, options = {}) {
   return response.json()
 }
 
-export function fetchMatches() {
-  return request('/matches')
+export function fetchMatches(page = 0, size = 10, sort = 'date,asc') {
+  const params = new URLSearchParams({ page, size, sort })
+  return request(`/matches?${params.toString()}`)
 }
 
 export function fetchMatchById(id) {

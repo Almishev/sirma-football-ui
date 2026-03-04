@@ -141,6 +141,41 @@
   cursor: pointer;
 }
 
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sort-indicator {
+  margin-left: 4px;
+  font-size: 14px;
+  font-weight: 900;
+  opacity: 0.8;
+}
+
+.pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagination button {
+  padding: 4px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  border: 1px solid var(--color-button-border);
+  background-color: var(--color-button-bg);
+  color: var(--color-body-text);
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .match-header {
   margin-bottom: 16px;
 }
@@ -170,6 +205,7 @@
   border-radius: 4px;
   border: 1px solid var(--color-button-border);
   background-color: var(--color-button-bg);
+  color: var(--color-body-text);
   cursor: pointer;
 }
 
