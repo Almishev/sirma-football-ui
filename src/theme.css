@@ -15,6 +15,7 @@
   --color-table-border: #e5e7eb;
   --color-table-head-bg: #f3f4f6;
   --color-table-row-even: #f9fafb;
+  --color-table-row-odd: #ffffff;
   --color-table-row-hover: #e5e7eb;
 
   --color-button-border: #d1d5db;
@@ -24,27 +25,28 @@
 }
 
 :root[data-theme='dark'] {
-  --color-body-bg: #020617;
+  --color-body-bg: #333333;
   --color-body-text: #e5e7eb;
 
-  --color-app-bg: #020617;
+  --color-app-bg: #333333;
   --color-app-shadow: 0 10px 25px rgba(15, 23, 42, 0.6);
 
-  --color-nav-bg: #020617;
+  --color-nav-bg: #333333;
   --color-nav-text: #e5e7eb;
   --color-nav-active-border: #e5e7eb;
 
-  --color-footer-bg: #020617;
+  --color-footer-bg: #333333;
   --color-footer-text: #9ca3af;
 
   --color-table-border: #1f2937;
-  --color-table-head-bg: #111827;
-  --color-table-row-even: #020617;
-  --color-table-row-hover: #111827;
+  --color-table-head-bg: #3f3f3f;
+  --color-table-row-even: #2b2b2b;
+  --color-table-row-odd: #333333;
+  --color-table-row-hover: #3f3f3f;
 
   --color-button-border: #4b5563;
-  --color-button-bg: #111827;
-  --color-toggle-bg: #111827;
+  --color-button-bg: #3f3f3f;
+  --color-toggle-bg: #3f3f3f;
   --color-toggle-text: #e5e7eb;
 }
 

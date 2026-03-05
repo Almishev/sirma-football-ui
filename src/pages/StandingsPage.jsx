@@ -48,13 +48,14 @@ function StandingsPage() {
   }
 
   return (
-    <div>
+    <div className="standings-page">
       <h2>Group Standings</h2>
-      {groups.map((group) => (
-        <section key={group.groupLetter} style={{ marginBottom: '2rem' }}>
-          <h3>Group {group.groupLetter}</h3>
-          <div className="table-container">
-            <table>
+      <div className="standings-groups">
+        {groups.map((group) => (
+          <section key={group.groupLetter} className="standings-group">
+            <h3>Group {group.groupLetter}</h3>
+            <div className="table-container">
+              <table>
               <thead>
                 <tr>
                   <th>Team</th>
@@ -90,7 +91,8 @@ function StandingsPage() {
             </table>
           </div>
         </section>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }

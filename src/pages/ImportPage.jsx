@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import { importCsv, deleteAllImportData, deleteImportData } from '../api/client'
-import './ImportPage.css'
 
 const IMPORTS = [
   { key: 'teams', label: 'Teams', hint: 'teams.csv' },

@@ -77,41 +77,72 @@ function MatchesTable() {
 
       {!loading && !error && matches.length > 0 && (
         <>
-          <table className="table">
-            <thead>
-              <tr>
-                <th
-                  className="sortable-header"
-                  onClick={() => toggleSort('date')}
-                >
-                  Date <span className="sort-indicator">{sortIndicator('date')}</span>
-                </th>
-                <th
-                  className="sortable-header"
-                  onClick={() => toggleSort('groupLetter')}
-                >
-                  Group <span className="sort-indicator">{sortIndicator('groupLetter')}</span>
-                </th>
-                <th>Home team</th>
-                <th>Score</th>
-                <th>Away team</th>
-              </tr>
-            </thead>
-            <tbody>
-              {matches.map((match) => (
-                <tr
-                  key={match.id}
-                  onClick={() => navigate(`/matches/${match.id}`)}
-                >
-                  <td>{match.date}</td>
-                  <td>{match.groupLetter}</td>
-                  <td>{match.aTeamName}</td>
-                  <td>{match.score}</td>
-                  <td>{match.bTeamName}</td>
+          <div className="matches-table-desktop">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th
+                    className="sortable-header"
+                    onClick={() => toggleSort('date')}
+                  >
+                    Date <span className="sort-indicator">{sortIndicator('date')}</span>
+                  </th>
+                  <th
+                    className="sortable-header"
+                    onClick={() => toggleSort('groupLetter')}
+                  >
+                    Group <span className="sort-indicator">{sortIndicator('groupLetter')}</span>
+                  </th>
+                  <th>Home team</th>
+                  <th>Score</th>
+                  <th>Away team</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {matches.map((match) => (
+                  <tr
+                    key={match.id}
+                    onClick={() => navigate(`/matches/${match.id}`)}
+                  >
+                    <td>{match.date}</td>
+                    <td>{match.groupLetter}</td>
+                    <td>{match.aTeamName}</td>
+                    <td>{match.score}</td>
+                    <td>{match.bTeamName}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="matches-list-mobile">
+            {matches.map((match) => (
+              <button
+                key={match.id}
+                type="button"
+                className="match-card"
+                onClick={() => navigate(`/matches/${match.id}`)}
+              >
+                <div className="match-card-header">
+                  <span className="match-card-date">{match.date}</span>
+                </div>
+                <div className="match-card-body">
+                  <div className="match-card-meta">
+                    <span className="match-card-group">Group {match.groupLetter}</span>
+                  </div>
+                  <div className="match-card-row">
+                    <span className="match-card-team match-card-team-home">
+                      {match.aTeamName}
+                    </span>
+                    <span className="match-card-score">{match.score}</span>
+                    <span className="match-card-team match-card-team-away">
+                      {match.bTeamName}
+                    </span>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
 
           <Pagination
             page={page}

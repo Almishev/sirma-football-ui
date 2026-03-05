@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, Navigate, Link } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import MatchesPage from './pages/MatchesPage.jsx'
 import MatchDetailsPage from './pages/MatchDetailsPage.jsx'
 import TeamDetailsPage from './pages/TeamDetailsPage.jsx'
@@ -10,15 +10,16 @@ import StandingsPage from './pages/StandingsPage.jsx'
 import ImportPage from './pages/ImportPage.jsx'
 import Navigation from './components/Navigation.jsx'
 import Footer from './components/Footer.jsx'
+import TopBanner from './components/TopBanner.jsx'
+import TopStrip from './components/TopStrip.jsx'
 
 function App() {
   return (
     <>
+      <TopStrip />
+      <TopBanner />
       <header className="top-nav">
         <div className="top-nav-inner">
-          <h1 className="top-nav-title">
-            <Link to="/">Football Tournament</Link>
-          </h1>
           <Navigation />
         </div>
       </header>

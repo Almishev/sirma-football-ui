@@ -47,7 +47,7 @@ function GroupsPage() {
   const sortedGroupKeys = Object.keys(groups).sort()
 
   return (
-    <section>
+    <section className="groups-page">
       <h2>Groups</h2>
 
       {loading && <p>Loading groups...</p>}
@@ -55,31 +55,33 @@ function GroupsPage() {
 
       {!loading && !error && teams.length === 0 && <p>No groups available.</p>}
 
-      {!loading &&
-        !error &&
-        sortedGroupKeys.map((group) => (
-          <div key={group} style={{ marginBottom: '24px' }}>
-            <h3>Group {group}</h3>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Team</th>
-                </tr>
-              </thead>
-              <tbody>
-                {groups[group].map((team) => (
-                  <tr
-                    key={team.id}
-                    onClick={() => navigate(`/teams/${team.id}`)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <td>{team.name}</td>
+      {!loading && !error && (
+        <div className="groups-grid">
+          {sortedGroupKeys.map((group) => (
+            <div key={group} className="group-card">
+              <h3>Group {group}</h3>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Team</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ))}
+                </thead>
+                <tbody>
+                  {groups[group].map((team) => (
+                    <tr
+                      key={team.id}
+                      onClick={() => navigate(`/teams/${team.id}`)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <td>{team.name}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   )
 }
