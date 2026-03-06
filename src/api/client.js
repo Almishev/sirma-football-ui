@@ -1,4 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8091/api' || 'http://95.216.141.216:8091/api'
+const API_BASE = import.meta.env.VITE_API_BASE ||
+  (import.meta.env.PROD ? 'http://95.216.141.216:8091/api' : 'http://localhost:8091/api')
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_BASE}${path}`, {
