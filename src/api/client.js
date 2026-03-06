@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8091/api'
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8091/api' || 'http://95.216.141.216:8091/api'
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_BASE}${path}`, {
@@ -55,12 +55,7 @@ export function fetchPlayerById(id) {
   return request(`/players/${id}`)
 }
 
-/**
- * Upload a CSV file to an import endpoint. Uses multipart/form-data with field name "file".
- * @param {'teams'|'players'|'matches'|'records'} type - which import endpoint to call
- * @param {File} file - the CSV file
- * @returns {Promise<{ imported: number }>}
- */
+
 export function importCsv(type, file) {
   const path = `/import/${type}`
   const formData = new FormData()
@@ -85,19 +80,11 @@ export function importCsv(type, file) {
   })
 }
 
-/**
- * Delete existing data from the database (for admin: clear before re-import).
- * @param {'records'|'matches'|'players'|'teams'} type
- * @returns {Promise<{ deleted: number }>}
- */
+
 export function deleteImportData(type) {
   return request(`/import/${type}`, { method: 'DELETE' })
 }
 
-/**
- * Delete all data in dependency order: records, matches, players, teams.
- * @returns {Promise<{ records: number, matches: number, players: number, teams: number }>}
- */
 export function deleteAllImportData() {
   return request('/import/all', { method: 'DELETE' })
 }
