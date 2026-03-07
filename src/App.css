@@ -409,6 +409,129 @@
   cursor: pointer;
 }
 
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.page-header h2 {
+  margin: 0;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.button-primary,
+.button-secondary,
+.button-danger {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.button-primary {
+  background-color: #d60000;
+  color: #fff;
+  border-color: #b30000;
+}
+
+.button-primary:hover {
+  background-color: #b30000;
+}
+
+.button-secondary {
+  background-color: var(--color-button-bg);
+  color: var(--color-body-text);
+  border-color: var(--color-button-border);
+}
+
+.button-secondary:hover {
+  background-color: var(--color-table-even);
+}
+
+.button-danger {
+  background-color: #991b1b;
+  color: #fff;
+  border-color: #7f1d1d;
+}
+
+.button-danger:hover {
+  background-color: #7f1d1d;
+}
+
+.crud-form {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.crud-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.crud-form label .required {
+  color: #b91c1c;
+}
+
+.crud-form input,
+.crud-form select {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  background-color: var(--color-app-bg);
+  color: var(--color-body-text);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.form-actions button[type="submit"] {
+  padding: 8px 20px;
+  background-color: #d60000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.form-actions button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.form-actions button[type="button"] {
+  padding: 8px 16px;
+  background-color: var(--color-button-bg);
+  color: var(--color-body-text);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-error {
+  color: #b91c1c;
+  margin: 0 0 12px;
+  font-weight: 500;
+}
+
 .top-banner {
   width: 100%;
   padding: 28px 28px 28px;

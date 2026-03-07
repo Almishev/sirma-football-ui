@@ -2,11 +2,19 @@ const API_BASE = import.meta.env.VITE_API_BASE ||
   (import.meta.env.PROD ? 'http://95.216.141.216:8091/api' : 'http://localhost:8091/api')
 
 async function request(path, options = {}) {
+  const headers = {
+    Accept: 'application/json',
+    ...options.headers,
+  }
+  let body = options.body
+  if (body != null && typeof body === 'object' && !(body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json'
+    body = JSON.stringify(body)
+  }
   const response = await fetch(`${API_BASE}${path}`, {
-    headers: {
-      Accept: 'application/json',
-    },
     ...options,
+    headers,
+    body,
   })
 
   if (!response.ok) {
@@ -56,6 +64,53 @@ export function fetchPlayerById(id) {
   return request(`/players/${id}`)
 }
 
+export function fetchPlayers() {
+  return request('/players')
+}
+
+export function fetchPlayersPage(page = 0, size = 15, sort = 'fullName,asc') {
+  const params = new URLSearchParams({ page, size, sort })
+  return request(`/players?${params.toString()}`)
+}
+
+// Teams CRUD
+export function createTeam(body) {
+  return request('/teams', { method: 'POST', body })
+}
+
+export function updateTeam(id, body) {
+  return request(`/teams/${id}`, { method: 'PUT', body })
+}
+
+export function deleteTeam(id) {
+  return request(`/teams/${id}`, { method: 'DELETE' })
+}
+
+// Players CRUD
+export function createPlayer(body) {
+  return request('/players', { method: 'POST', body })
+}
+
+export function updatePlayer(id, body) {
+  return request(`/players/${id}`, { method: 'PUT', body })
+}
+
+export function deletePlayer(id) {
+  return request(`/players/${id}`, { method: 'DELETE' })
+}
+
+// Matches CRUD
+export function createMatch(body) {
+  return request('/matches', { method: 'POST', body })
+}
+
+export function updateMatch(id, body) {
+  return request(`/matches/${id}`, { method: 'PUT', body })
+}
+
+export function deleteMatch(id) {
+  return request(`/matches/${id}`, { method: 'DELETE' })
+}
 
 export function importCsv(type, file) {
   const path = `/import/${type}`

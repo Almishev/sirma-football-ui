@@ -38,6 +38,13 @@ function Navigation() {
           Teams
         </NavLink>
         <NavLink
+          to="/players"
+          className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
+          onClick={() => setMenuOpen(false)}
+        >
+          Players
+        </NavLink>
+        <NavLink
           to="/groups"
           className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
           onClick={() => setMenuOpen(false)}

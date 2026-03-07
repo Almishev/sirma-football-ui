@@ -66,7 +66,12 @@ function MatchesTable() {
 
   return (
     <section>
-      <h2>Matches</h2>
+      <div className="page-header">
+        <h2>Matches</h2>
+        <button type="button" className="button-primary" onClick={() => navigate('/matches/new')}>
+          New match
+        </button>
+      </div>
 
       {loading && <p>Loading matches...</p>}
       {error && !loading && <p>Error loading matches: {error}</p>}

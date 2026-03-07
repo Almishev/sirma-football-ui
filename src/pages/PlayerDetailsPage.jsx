@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { fetchPlayerById } from '../api/client'
+import { fetchPlayerById, deletePlayer } from '../api/client'
 
 function PlayerDetailsPage() {
   const { playerId } = useParams()
@@ -60,7 +60,25 @@ function PlayerDetailsPage() {
 
       {!loading && !error && player && (
         <>
-          <h2>{player.fullName}</h2>
+          <div className="page-header">
+            <h2>{player.fullName}</h2>
+            <div className="detail-actions">
+              <button type="button" className="button-secondary" onClick={() => navigate(`/players/${player.id}/edit`)}>
+                Edit
+              </button>
+              <button
+                type="button"
+                className="button-danger"
+                onClick={() => {
+                  if (window.confirm('Delete this player? All their match records will be deleted.')) {
+                    deletePlayer(player.id).then(() => navigate('/players')).catch((err) => setError(err.message))
+                  }
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
           <p>
             #{player.teamNumber} · {player.position} · {player.teamName} (Group{' '}
             {player.groupLetter})

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { fetchTeamById } from '../api/client'
+import { fetchTeamById, deleteTeam } from '../api/client'
 
 function TeamDetails() {
   const { teamId } = useParams()
@@ -60,7 +60,25 @@ function TeamDetails() {
 
       {!loading && !error && team && (
         <>
-          <h2>{team.name}</h2>
+          <div className="page-header">
+            <h2>{team.name}</h2>
+            <div className="detail-actions">
+              <button type="button" className="button-secondary" onClick={() => navigate(`/teams/${team.id}/edit`)}>
+                Edit
+              </button>
+              <button
+                type="button"
+                className="button-danger"
+                onClick={() => {
+                  if (window.confirm('Delete this team? All its players and their records will be deleted.')) {
+                    deleteTeam(team.id).then(() => navigate('/teams')).catch((err) => setError(err.message))
+                  }
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
           <p>
             Group {team.groupLetter} · Manager: {team.managerFullName}
           </p>

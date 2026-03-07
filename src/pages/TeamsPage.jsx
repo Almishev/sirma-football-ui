@@ -37,7 +37,12 @@ function TeamsPage() {
 
   return (
     <section>
-      <h2>Teams</h2>
+      <div className="page-header">
+        <h2>Teams</h2>
+        <button type="button" className="button-primary" onClick={() => navigate('/teams/new')}>
+          New team
+        </button>
+      </div>
 
       {loading && <p>Loading teams...</p>}
       {error && !loading && <p>Error loading teams: {error}</p>}
