@@ -60,6 +60,11 @@ export function fetchGroupStandings() {
   return request('/groups/standings')
 }
 
+export function fetchPlayerPairs(limit = 100) {
+  const params = new URLSearchParams({ limit: String(limit) })
+  return request(`/stats/player-pairs?${params.toString()}`)
+}
+
 export function fetchPlayerById(id) {
   return request(`/players/${id}`)
 }

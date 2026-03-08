@@ -781,3 +781,67 @@
   color: var(--color-body-text);
 }
 
+/* Player pairs: desktop table / mobile cards */
+.player-pairs-table-desktop {
+  display: block;
+}
+
+.player-pairs-list-mobile {
+  display: none;
+}
+
+.player-pair-card {
+  padding: 12px 14px;
+  border: 1px solid var(--color-table-border);
+  border-radius: 8px;
+  background: var(--color-table-row-even);
+  margin-bottom: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.player-pair-card-rank {
+  font-weight: 600;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.player-pair-card-players {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.player-pair-card-players a {
+  text-decoration: underline;
+}
+
+.player-pair-card-sep {
+  opacity: 0.7;
+}
+
+.player-pair-card-minutes {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+@media (max-width: 640px) {
+  .player-pairs-table-desktop {
+    display: none;
+  }
+
+  .player-pairs-list-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 8px;
+  }
+
+  .player-pairs-list-mobile .player-pair-card:last-child {
+    margin-bottom: 0;
+  }
+}
+

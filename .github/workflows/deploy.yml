@@ -44,6 +44,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/app
+            # Stop all running containers so ports 80 and 8091 are freed
+            docker stop $(docker ps -q) 2>/dev/null || true
+            sleep 8
+            docker compose down
             docker compose pull
             docker compose up -d
 

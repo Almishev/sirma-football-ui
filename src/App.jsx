@@ -11,6 +11,7 @@ import MatchFormPage from './pages/MatchFormPage.jsx'
 import TeamsPage from './pages/TeamsPage.jsx'
 import GroupsPage from './pages/GroupsPage.jsx'
 import StandingsPage from './pages/StandingsPage.jsx'
+import PlayerPairsPage from './pages/PlayerPairsPage.jsx'
 import ImportPage from './pages/ImportPage.jsx'
 import Navigation from './components/Navigation.jsx'
 import Footer from './components/Footer.jsx'
@@ -44,6 +45,7 @@ function App() {
             <Route path="/matches/:matchId" element={<MatchDetailsPage />} />
             <Route path="/groups" element={<GroupsPage />} />
             <Route path="/standings" element={<StandingsPage />} />
+            <Route path="/stats/player-pairs" element={<PlayerPairsPage />} />
             <Route path="/import" element={<ImportPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

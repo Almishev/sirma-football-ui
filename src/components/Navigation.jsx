@@ -59,6 +59,13 @@ function Navigation() {
           Standings
         </NavLink>
         <NavLink
+          to="/stats/player-pairs"
+          className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
+          onClick={() => setMenuOpen(false)}
+        >
+          Player pairs
+        </NavLink>
+        <NavLink
           to="/import"
           className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
           onClick={() => setMenuOpen(false)}
