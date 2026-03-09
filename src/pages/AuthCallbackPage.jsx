@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 
-/** Reads ?token= from URL (after Google OAuth), stores it and redirects to home. */
 function AuthCallbackPage() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()

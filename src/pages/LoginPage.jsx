@@ -55,6 +55,9 @@ function LoginPage() {
         <button type="submit" className="auth-form-button" disabled={submitting}>
           {submitting ? 'Logging in...' : 'Login'}
         </button>
+        <p className="auth-form-footer">
+          <Link to="/forgot-password" className="auth-form-link">Forgot password?</Link>
+        </p>
         <p className="auth-form-divider">or</p>
         <a href={getGoogleLoginUrl()} className="auth-form-button auth-form-google">
           Login with Google
