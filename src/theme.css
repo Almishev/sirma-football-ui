@@ -22,6 +22,10 @@
   --color-button-bg: #f9fafb;
   --color-toggle-bg: transparent;
   --color-toggle-text: #f3f4f6;
+
+  --color-auth-link: #000000;
+  --color-auth-button-bg: #000000;
+  --color-auth-button-text: #ffffff;
 }
 
 :root[data-theme='dark'] {
@@ -48,5 +52,9 @@
   --color-button-bg: #3f3f3f;
   --color-toggle-bg: #3f3f3f;
   --color-toggle-text: #e5e7eb;
+
+  --color-auth-link: #ffffff;
+  --color-auth-button-bg: #ffffff;
+  --color-auth-button-text: #000000;
 }
 

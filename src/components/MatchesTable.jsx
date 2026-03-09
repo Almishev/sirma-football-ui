@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchMatches } from '../api/client'
+import { useAuth } from '../context/AuthContext.jsx'
 import Pagination from './Pagination.jsx'
 
 function MatchesTable() {
@@ -12,6 +13,8 @@ function MatchesTable() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
+  const { isAuthenticated, user } = useAuth()
+  const canEdit = isAuthenticated && (user?.roles?.includes('ROLE_ADMIN') || user?.roles?.includes('ROLE_EDITOR'))
 
   useEffect(() => {
     let cancelled = false
@@ -68,9 +71,11 @@ function MatchesTable() {
     <section>
       <div className="page-header">
         <h2>Matches</h2>
-        <button type="button" className="button-primary" onClick={() => navigate('/matches/new')}>
-          New match
-        </button>
+        {canEdit && (
+          <button type="button" className="button-primary" onClick={() => navigate('/matches/new')}>
+            New match
+          </button>
+        )}
       </div>
 
       {loading && <p>Loading matches...</p>}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchPlayersPage } from '../api/client'
+import { useAuth } from '../context/AuthContext.jsx'
 import Pagination from '../components/Pagination.jsx'
 
 function PlayersPage() {
@@ -12,6 +13,8 @@ function PlayersPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
+  const { isAuthenticated, user } = useAuth()
+  const canEdit = isAuthenticated && (user?.roles?.includes('ROLE_ADMIN') || user?.roles?.includes('ROLE_EDITOR'))
 
   useEffect(() => {
     let cancelled = false
@@ -53,9 +56,11 @@ function PlayersPage() {
     <section>
       <div className="page-header">
         <h2>Players</h2>
-        <button type="button" className="button-primary" onClick={() => navigate('/players/new')}>
-          New player
-        </button>
+        {canEdit && (
+          <button type="button" className="button-primary" onClick={() => navigate('/players/new')}>
+            New player
+          </button>
+        )}
       </div>
 
       {loading && <p>Loading players...</p>}

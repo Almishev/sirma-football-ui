@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchTeams } from '../api/client'
+import { useAuth } from '../context/AuthContext.jsx'
 
 function TeamsPage() {
   const [teams, setTeams] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
+  const { isAuthenticated, user } = useAuth()
+  const canEdit = isAuthenticated && (user?.roles?.includes('ROLE_ADMIN') || user?.roles?.includes('ROLE_EDITOR'))
 
   useEffect(() => {
     let cancelled = false
@@ -39,9 +42,11 @@ function TeamsPage() {
     <section>
       <div className="page-header">
         <h2>Teams</h2>
-        <button type="button" className="button-primary" onClick={() => navigate('/teams/new')}>
-          New team
-        </button>
+        {canEdit && (
+          <button type="button" className="button-primary" onClick={() => navigate('/teams/new')}>
+            New team
+          </button>
+        )}
       </div>
 
       {loading && <p>Loading teams...</p>}

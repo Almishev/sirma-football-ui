@@ -468,6 +468,65 @@
   background-color: #7f1d1d;
 }
 
+.role-select {
+  margin-right: 8px;
+  min-width: 100px;
+}
+
+.inline-muted,
+.muted {
+  color: var(--color-text-muted, #6b7280);
+  font-size: 0.9em;
+}
+
+.auth-form-link {
+  color: var(--color-auth-link);
+  font-weight: 500;
+}
+.auth-form-link:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+.auth-tagline {
+  color: var(--color-auth-link);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.auth-form-button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: var(--color-auth-button-bg);
+  color: var(--color-auth-button-text);
+}
+.auth-form-button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+.auth-form-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-form-divider {
+  text-align: center;
+  margin: 8px 0;
+  color: var(--color-muted, #666);
+  font-size: 0.9rem;
+}
+
+.auth-form-google {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
 .crud-form {
   max-width: 400px;
   display: flex;

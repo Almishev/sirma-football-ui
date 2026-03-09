@@ -1,10 +1,33 @@
 const API_BASE = import.meta.env.VITE_API_BASE ||
   (import.meta.env.PROD ? 'http://95.216.141.216:8091/api' : 'http://localhost:8091/api')
 
+export const BACKEND_ROOT = API_BASE.replace(/\/api\/?$/, '') || (import.meta.env.PROD ? 'http://95.216.141.216:8091' : 'http://localhost:8091')
+
+export function getGoogleLoginUrl() {
+  return `${BACKEND_ROOT}/oauth2/authorization/google`
+}
+
+let authToken = null
+
+export function setAuthToken(token) {
+  authToken = token
+}
+
+export function clearAuthToken() {
+  authToken = null
+}
+
+export function getAuthToken() {
+  return authToken
+}
+
 async function request(path, options = {}) {
   const headers = {
     Accept: 'application/json',
     ...options.headers,
+  }
+  if (authToken) {
+    headers['Authorization'] = `Bearer ${authToken}`
   }
   let body = options.body
   if (body != null && typeof body === 'object' && !(body instanceof FormData)) {
@@ -22,12 +45,17 @@ async function request(path, options = {}) {
     try {
       const text = await response.text()
       if (text) {
-        message = text
+        try {
+          const json = JSON.parse(text)
+          if (json.message) message = json.message
+          else message = text
+        } catch {
+          message = text
+        }
       }
     } catch {
-      
+     
     }
-    
     console.log('API request failed:', path, message)
     throw new Error(message)
   }
@@ -37,6 +65,35 @@ async function request(path, options = {}) {
   }
 
   return response.json()
+}
+
+export function login(email, password) {
+  return request('/auth/login', {
+    method: 'POST',
+    body: { email, password },
+  })
+}
+
+export function register(username, email, password) {
+  return request('/auth/register', {
+    method: 'POST',
+    body: { username, email, password },
+  })
+}
+
+export function fetchUsers() {
+  return request('/users')
+}
+
+export function updateUserRoles(id, roleNames) {
+  return request(`/users/${id}/roles`, {
+    method: 'PATCH',
+    body: { roleNames },
+  })
+}
+
+export function banUser(id) {
+  return request(`/users/${id}/ban`, { method: 'POST' })
 }
 
 export function fetchMatches(page = 0, size = 10, sort = 'date,asc') {
@@ -122,11 +179,11 @@ export function importCsv(type, file) {
   const formData = new FormData()
   formData.append('file', file)
 
+  const headers = { Accept: 'application/json' }
+  if (authToken) headers['Authorization'] = `Bearer ${authToken}`
   return fetch(`${API_BASE}${path}`, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-    },
+    headers,
     body: formData,
   }).then((response) => {
     if (!response.ok) {

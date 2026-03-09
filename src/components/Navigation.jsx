@@ -1,10 +1,19 @@
 import { useContext, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../context/ThemeContext.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 
 function Navigation() {
   const { theme, toggleTheme } = useContext(ThemeContext)
+  const { isAuthenticated, user, logout } = useAuth()
+  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const handleLogout = () => {
+    logout()
+    setMenuOpen(false)
+    navigate('/', { replace: true })
+  }
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev)
@@ -65,13 +74,41 @@ function Navigation() {
         >
           Player pairs
         </NavLink>
-        <NavLink
-          to="/import"
-          className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
-          onClick={() => setMenuOpen(false)}
-        >
-          Import
-        </NavLink>
+        {isAuthenticated && user?.roles?.includes('ROLE_ADMIN') && (
+          <NavLink
+            to="/import"
+            className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
+            onClick={() => setMenuOpen(false)}
+          >
+            Import
+          </NavLink>
+        )}
+        {isAuthenticated && user?.roles?.includes('ROLE_ADMIN') && (
+          <NavLink
+            to="/admin/users"
+            className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
+            onClick={() => setMenuOpen(false)}
+          >
+            Users
+          </NavLink>
+        )}
+        {isAuthenticated ? (
+          <button
+            type="button"
+            className="nav-button"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        ) : (
+          <NavLink
+            to="/login"
+            className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
+            onClick={() => setMenuOpen(false)}
+          >
+            Login
+          </NavLink>
+        )}
       </div>
 
       {!menuOpen && (
