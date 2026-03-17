@@ -20,6 +20,9 @@ import AuthCallbackPage from './pages/AuthCallbackPage.jsx'
 import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx'
 import ResetPasswordPage from './pages/ResetPasswordPage.jsx'
 import AdminUsersPage from './pages/AdminUsersPage.jsx'
+import DonatePage from './pages/DonatePage.jsx'
+import DonateSuccessPage from './pages/DonateSuccessPage.jsx'
+import DonateCancelPage from './pages/DonateCancelPage.jsx'
 import Navigation from './components/Navigation.jsx'
 import Footer from './components/Footer.jsx'
 import TopBanner from './components/TopBanner.jsx'
@@ -64,6 +67,9 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/admin/users" element={<AdminUsersPage />} />
+            <Route path="/donate" element={<DonatePage />} />
+            <Route path="/donate/success" element={<DonateSuccessPage />} />
+            <Route path="/donate/cancel" element={<DonateCancelPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

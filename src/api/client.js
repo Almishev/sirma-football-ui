@@ -221,3 +221,9 @@ export function deleteAllImportData() {
   return request('/import/all', { method: 'DELETE' })
 }
 
+export function createDonationSession() {
+  return request('/donations/create-session', {
+    method: 'POST',
+  })
+}
+
